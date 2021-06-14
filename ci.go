@@ -164,15 +164,15 @@ func cloudbuild() (ci CI, err error) {
 }
 
 func fromEnv() (ci CI, err error) {
-	if v, err := strconv.Atoi(os.Getenv("TFNOTIFY_PR_NUMBER")); err != nil {
+	if v, err := strconv.Atoi(os.Getenv("PULL_REQUEST_NUMBER")); err != nil {
 		ci.PR.Number = v
 	} else {
-		return ci, fmt.Errorf("CI service local: TFNOTIFY_PR_NUMBER is required")
+		return ci, fmt.Errorf("CI service local: PULL_REQUEST_NUMBER is required")
 	}
-	if v, ok := os.LookupEnv("TFNOTIFY_PR_REVISION"); ok {
+	if v, ok := os.LookupEnv("GIT_COMMIT"); ok {
 		ci.PR.Revision = v
 	} else {
-		return ci, fmt.Errorf("CI service local: TFNOTIFY_PR_REVISION is required")
+		return ci, fmt.Errorf("CI service local: GIT_COMMIT is required")
 	}
 	return ci, err
 }
