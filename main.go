@@ -87,6 +87,11 @@ func (t *tfnotify) Run() error {
 		if err != nil {
 			return err
 		}
+	case "local":
+		ci, err = fromEnv()
+		if err != nil {
+			return err
+		}
 	case "":
 		return fmt.Errorf("CI service: required (e.g. circleci)")
 	default:

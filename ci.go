@@ -162,3 +162,17 @@ func cloudbuild() (ci CI, err error) {
 	ci.PR.Number, err = strconv.Atoi(pr)
 	return ci, err
 }
+
+func fromEnv() (ci CI, err error) {
+	if v, err := strconv.Atoi(os.Getenv("TFNOTIFY_PR_NUMBER")); err != nil {
+		ci.PR.Number = v
+	} else {
+		return ci, fmt.Errorf("CI service local: TFNOTIFY_PR_NUMBER is required")
+	}
+	if v, ok := os.LookupEnv("TFNOTIFY_PR_REVISION"); ok {
+		ci.PR.Revision = v
+	} else {
+		return ci, fmt.Errorf("CI service local: TFNOTIFY_PR_REVISION is required")
+	}
+	return ci, err
+}
