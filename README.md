@@ -380,6 +380,12 @@ Currently, supported CI are here:
 - GitHub Actions
 - Google Cloud Build
 
+If you want to run tfnotify locally and use GitHub as notifier, please set `TFNOTIFY_PR_REVISION`and `TFNOTIFY_PR_NUMBER`envvars with `--ci=local` like the following:
+
+```console
+$ terraform plan | TFNOTIFY_PR_NUMBER=2 TFNOTIFY_PR_REVISION=xxx ./tfnotify --ci "local" plan
+```
+
 ### Private Repository Considerations
 GitHub private repositories require the `repo` and `write:discussion` permissions.
 
