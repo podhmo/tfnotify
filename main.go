@@ -88,7 +88,7 @@ func (t *tfnotify) Run() error {
 			return err
 		}
 	case "local":
-		ci, err = fromEnv()
+		ci, err = local()
 		if err != nil {
 			return err
 		}

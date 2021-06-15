@@ -163,8 +163,8 @@ func cloudbuild() (ci CI, err error) {
 	return ci, err
 }
 
-func fromEnv() (ci CI, err error) {
-	if v, err := strconv.Atoi(os.Getenv("PULL_REQUEST_NUMBER")); err != nil {
+func local() (ci CI, err error) {
+	if v, err := strconv.Atoi(os.Getenv("PULL_REQUEST_NUMBER")); err == nil {
 		ci.PR.Number = v
 	} else {
 		return ci, fmt.Errorf("CI service local: PULL_REQUEST_NUMBER is required")
