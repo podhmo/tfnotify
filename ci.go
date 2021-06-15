@@ -166,13 +166,13 @@ func cloudbuild() (ci CI, err error) {
 func local() (ci CI, err error) {
 	if v, err := strconv.Atoi(os.Getenv("PULL_REQUEST_NUMBER")); err == nil {
 		ci.PR.Number = v
-	} else {
-		return ci, fmt.Errorf("CI service local: PULL_REQUEST_NUMBER is required")
 	}
 	if v, ok := os.LookupEnv("GIT_COMMIT"); ok {
 		ci.PR.Revision = v
-	} else {
-		return ci, fmt.Errorf("CI service local: GIT_COMMIT is required")
+	}
+
+	if ci.PR.Number == 0 && ci.PR.Revision == "" {
+		return ci, fmt.Errorf("CI service local: PULL_REQUEST_NUMBER is required (or GIT_COMMIT)")
 	}
 	return ci, err
 }
